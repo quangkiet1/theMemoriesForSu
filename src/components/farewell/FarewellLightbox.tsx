@@ -140,7 +140,6 @@ export default function FarewellLightbox({
                 style={{ objectPosition: current.objectPosition || "center" }}
                 sizes="min(85vw, 800px)"
                 priority
-                unoptimized
               />
             </div>
 

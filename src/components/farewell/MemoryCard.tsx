@@ -67,7 +67,6 @@ export default function MemoryCard({
         }}
         sizes={`${size}px`}
         priority={memory.featured}
-        unoptimized
       />
 
       {/* Subtle vignette overlay */}

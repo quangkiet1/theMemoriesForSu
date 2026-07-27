@@ -364,7 +364,6 @@ export default function MemoryOrbit({
                     fill
                     className="object-cover"
                     style={{ objectPosition: memory.objectPosition || "center" }}
-                    unoptimized
                     sizes="120px"
                   />
                 </button>

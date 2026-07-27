@@ -231,6 +231,15 @@ export default function FarewellExperience({
     prevStageRef.current = stage;
   }, [stage]);
 
+  // Preload memory images silently in background so they are cached instantly when orbit opens
+  useEffect(() => {
+    if (typeof window === "undefined") return;
+    memories.forEach((mem) => {
+      const img = new window.Image();
+      img.src = mem.src;
+    });
+  }, [memories]);
+
   // ---- Stage transitions ----
 
   const handleOpenEnvelope = useCallback(() => {
