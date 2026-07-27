@@ -1,0 +1,453 @@
+@import "tailwindcss";
+
+/* ============================================================
+   FAREWELL LETTER — Design Tokens
+   ============================================================ */
+
+:root {
+  /* Color Palette */
+  --cream-paper: #f5ecd9;
+  --cream-ivory: #fcf8ef;
+  --wine-red: #782b35;
+  --wine-dark: #4b1f25;
+  --text-brown: #302621;
+  --teal-dark: #273231;
+  --gold-light: #b99a67;
+  --paper-gray: #d8d0c2;
+  --envelope-body: #c8a882;
+  --envelope-dark: #a8865e;
+  --envelope-shadow: #8a6940;
+  --seal-red: #782b35;
+
+  /* Typography — uses CSS vars injected by Next.js next/font */
+  --font-serif: var(--font-playfair, "Playfair Display", Georgia, serif);
+  --font-sans: var(--font-be-vietnam, "Be Vietnam Pro", system-ui, sans-serif);
+  --font-script: var(--font-dancing, "Dancing Script", cursive);
+
+  /* Spacing & Layout */
+  --letter-max-width: 680px;
+  --letter-padding-x: clamp(1.5rem, 5vw, 3.5rem);
+  --letter-padding-y: clamp(2rem, 6vw, 4rem);
+
+  /* Transitions */
+  --ease-elegant: cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  --ease-smooth: cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* ============================================================
+   RESET & BASE
+   ============================================================ */
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  font-size: 16px;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  scroll-behavior: smooth;
+}
+
+html.lock-scroll,
+html.lock-scroll body {
+  overflow: hidden;
+}
+
+body {
+  font-family: var(--font-sans);
+  color: var(--text-brown);
+  background-color: var(--cream-ivory);
+  min-height: 100dvh;
+  line-height: 1.6;
+}
+
+/* ============================================================
+   TYPOGRAPHY SYSTEM
+   ============================================================ */
+
+.font-serif {
+  font-family: var(--font-serif);
+}
+
+.font-script {
+  font-family: var(--font-script);
+}
+
+.font-sans {
+  font-family: var(--font-sans);
+}
+
+/* ============================================================
+   ENVELOPE COMPONENT
+   ============================================================ */
+
+.envelope-wrapper {
+  perspective: 1000px;
+  transform-style: preserve-3d;
+}
+
+.envelope-body {
+  background: linear-gradient(
+    160deg,
+    var(--envelope-body) 0%,
+    var(--envelope-dark) 60%,
+    var(--envelope-shadow) 100%
+  );
+  position: relative;
+  border-radius: 4px;
+  box-shadow:
+    0 8px 32px rgba(48, 38, 33, 0.18),
+    0 2px 8px rgba(48, 38, 33, 0.12),
+    inset 0 1px 0 rgba(255, 255, 255, 0.15);
+  will-change: transform;
+}
+
+.envelope-flap {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  transform-origin: top center;
+  will-change: transform;
+  background: linear-gradient(
+    175deg,
+    var(--envelope-dark) 0%,
+    var(--envelope-shadow) 100%
+  );
+}
+
+.envelope-seal {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--wine-red) 0%, var(--wine-dark) 100%);
+  box-shadow:
+    0 2px 8px rgba(75, 31, 37, 0.4),
+    inset 0 1px 0 rgba(255, 255, 255, 0.1);
+  will-change: transform, opacity;
+}
+
+.letter-paper {
+  background: linear-gradient(
+    180deg,
+    var(--cream-ivory) 0%,
+    var(--cream-paper) 100%
+  );
+  box-shadow:
+    0 4px 24px rgba(48, 38, 33, 0.12),
+    0 1px 4px rgba(48, 38, 33, 0.08);
+  will-change: transform, opacity;
+}
+
+/* ============================================================
+   READING AREA
+   ============================================================ */
+
+.letter-reading-area {
+  max-width: var(--letter-max-width);
+  margin: 0 auto;
+  padding: var(--letter-padding-y) var(--letter-padding-x);
+}
+
+.letter-line {
+  display: block;
+  width: 60px;
+  height: 1px;
+  background: var(--gold-light);
+  opacity: 0.6;
+  margin: 0 auto 1.5rem;
+}
+
+.letter-eyebrow {
+  font-family: var(--font-sans);
+  font-size: 0.75rem;
+  font-weight: 500;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--gold-light);
+}
+
+.letter-title {
+  font-family: var(--font-serif);
+  font-size: clamp(1.5rem, 4vw, 2.25rem);
+  font-weight: 500;
+  line-height: 1.3;
+  color: var(--wine-dark);
+  font-style: italic;
+}
+
+.letter-body p {
+  font-family: var(--font-sans);
+  font-size: clamp(1rem, 2.2vw, 1.0625rem);
+  line-height: 1.85;
+  color: var(--text-brown);
+  margin-bottom: 1.5rem;
+}
+
+.letter-body p:last-child {
+  margin-bottom: 0;
+}
+
+.letter-closing {
+  font-family: var(--font-serif);
+  font-size: clamp(0.975rem, 2vw, 1.0625rem);
+  font-style: italic;
+  line-height: 1.7;
+  color: var(--wine-dark);
+}
+
+.letter-signature {
+  font-family: var(--font-script);
+  font-size: clamp(1.4rem, 3.5vw, 1.75rem);
+  color: var(--wine-red);
+  line-height: 1.3;
+}
+
+.letter-date {
+  font-family: var(--font-sans);
+  font-size: 0.8rem;
+  color: var(--paper-gray);
+  letter-spacing: 0.05em;
+}
+
+/* ============================================================
+   MEMORY ORBIT
+   ============================================================ */
+
+.orbit-backdrop {
+  background: radial-gradient(
+    ellipse at center,
+    #1a1510 0%,
+    #0f0c09 60%,
+    #080604 100%
+  );
+}
+
+.orbit-center-text {
+  font-family: var(--font-serif);
+  font-style: italic;
+  color: var(--cream-paper);
+  opacity: 0.9;
+  text-align: center;
+  line-height: 1.5;
+}
+
+.memory-card {
+  border-radius: 6px;
+  overflow: hidden;
+  cursor: pointer;
+  position: absolute;
+  will-change: transform, opacity;
+  box-shadow:
+    0 4px 16px rgba(0, 0, 0, 0.4),
+    0 1px 4px rgba(0, 0, 0, 0.2);
+  transition: box-shadow 0.3s var(--ease-smooth);
+}
+
+.memory-card:hover {
+  box-shadow:
+    0 8px 28px rgba(0, 0, 0, 0.5),
+    0 2px 8px rgba(0, 0, 0, 0.3);
+}
+
+.memory-card:focus-visible {
+  outline: 2px solid var(--gold-light);
+  outline-offset: 3px;
+}
+
+/* ============================================================
+   LIGHTBOX
+   ============================================================ */
+
+.lightbox-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(8, 6, 4, 0.92);
+  z-index: 200;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
+}
+
+.lightbox-content {
+  position: relative;
+  max-width: min(90vw, 900px);
+  max-height: 90dvh;
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+/* ============================================================
+   BUTTONS
+   ============================================================ */
+
+.btn-primary {
+  font-family: var(--font-sans);
+  font-size: 0.875rem;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  color: var(--cream-ivory);
+  background: var(--wine-red);
+  border: none;
+  border-radius: 3px;
+  padding: 0.875rem 2rem;
+  cursor: pointer;
+  min-height: 48px;
+  transition:
+    background 0.2s var(--ease-smooth),
+    box-shadow 0.2s var(--ease-smooth),
+    transform 0.15s var(--ease-smooth);
+  box-shadow: 0 2px 8px rgba(120, 43, 53, 0.3);
+}
+
+.btn-primary:hover {
+  background: var(--wine-dark);
+  box-shadow: 0 4px 16px rgba(120, 43, 53, 0.4);
+  transform: translateY(-1px);
+}
+
+.btn-primary:active {
+  transform: translateY(0);
+}
+
+.btn-primary:focus-visible {
+  outline: 2px solid var(--gold-light);
+  outline-offset: 3px;
+}
+
+.btn-ghost {
+  font-family: var(--font-sans);
+  font-size: 0.8rem;
+  font-weight: 400;
+  letter-spacing: 0.06em;
+  color: var(--paper-gray);
+  background: transparent;
+  border: 1px solid rgba(216, 208, 194, 0.25);
+  border-radius: 3px;
+  padding: 0.75rem 1.5rem;
+  cursor: pointer;
+  min-height: 44px;
+  transition:
+    color 0.2s var(--ease-smooth),
+    border-color 0.2s var(--ease-smooth);
+}
+
+.btn-ghost:hover {
+  color: var(--cream-paper);
+  border-color: rgba(216, 208, 194, 0.5);
+}
+
+.btn-ghost:focus-visible {
+  outline: 2px solid var(--gold-light);
+  outline-offset: 3px;
+}
+
+.btn-memory {
+  font-family: var(--font-serif);
+  font-size: clamp(0.9rem, 2.2vw, 1rem);
+  font-style: italic;
+  font-weight: 400;
+  color: var(--wine-dark);
+  background: transparent;
+  border: 1px solid rgba(120, 43, 53, 0.3);
+  border-radius: 3px;
+  padding: 0.875rem 1.75rem;
+  cursor: pointer;
+  min-height: 48px;
+  transition:
+    color 0.25s var(--ease-smooth),
+    border-color 0.25s var(--ease-smooth),
+    background 0.25s var(--ease-smooth),
+    transform 0.15s var(--ease-smooth);
+}
+
+.btn-memory:hover {
+  background: rgba(120, 43, 53, 0.06);
+  border-color: var(--wine-red);
+  color: var(--wine-red);
+  transform: translateY(-1px);
+}
+
+.btn-memory:focus-visible {
+  outline: 2px solid var(--wine-red);
+  outline-offset: 3px;
+}
+
+/* ============================================================
+   UTILITY
+   ============================================================ */
+
+.divider {
+  width: 100%;
+  height: 1px;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    var(--paper-gray),
+    transparent
+  );
+  opacity: 0.4;
+}
+
+.text-wine {
+  color: var(--wine-red);
+}
+
+.text-gold {
+  color: var(--gold-light);
+}
+
+.text-cream {
+  color: var(--cream-paper);
+}
+
+/* ============================================================
+   SCROLLBAR
+   ============================================================ */
+
+::-webkit-scrollbar {
+  width: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--cream-paper);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--paper-gray);
+  border-radius: 3px;
+}
+
+/* ============================================================
+   FOCUS
+   ============================================================ */
+
+:focus:not(:focus-visible) {
+  outline: none;
+}
+
+/* ============================================================
+   REDUCED MOTION
+   ============================================================ */
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+
+  html {
+    scroll-behavior: auto;
+  }
+}
